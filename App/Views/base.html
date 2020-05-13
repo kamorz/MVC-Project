@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>{% block title %}{% endblock %}</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<link rel="stylesheet" href="css/styles.css" />
+		<link rel="stylesheet" href="css/fontello.css" type="text/css" />
+		
+		<link href="https://fonts.googleapis.com/css?family=Courier+Prime:400,700&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+		
+	</head>
+	<body>
+		
+		<div class="container">
+		
+			<div class="row">
+				<div class="col-3  mx-0 text-center websideTopPct">
+					<img src="img/websideTop.jpg" class="img-fluid" alt="websideTop">	
+				</div>
+					
+				<div class="col-12 col-lg-6 mx-0 text-center websideTopTxt">	
+					<h1>Twój oszczędnościowy pomocnik</h1>
+				</div>
+					
+				<div class="col-3 mx-0 text-center websideTopPct">
+					<img src="img/websideTop.jpg" class="img-fluid" alt="websideTop">	
+				</div>
+			</div>
+		
+			<nav class="navbar navbar-default">
+				<div class="container-fluid">
+					<ul class="nav navbar-nav navbar-right">
+						{% if current_user %}
+							<li><a href="/profile/show">Test zalog.1</a></li>
+							<li><a href="/profile/show">Test zalog.2</a></li>   
+						{% else %}		
+							<li><a href="/profile/show">Test niezalog.1</a></li>
+							<li><a href="/profile/show">Test niezalog.2</a></li>
+						{% endif %}
+					</ul>
+				</div>
+			</nav>
+
+			{% for message in flash_messages %}
+				<!-- <div class="alert"> -->
+				<div class="alert alert-{{ message.type }}">
+					{{ message.body }}
+				</div>
+			{% endfor %}
+
+			{% block body %}
+			{% endblock %}
+		
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+
+		{% block footer %}
+		{% endblock %}
+	</body>
+</html>

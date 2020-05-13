@@ -1,0 +1,43 @@
+.alert {
+    border: 1px solid #ccc;
+    padding: 6px;
+}
+.alert-info {
+    background-color: #d9edf7;
+}
+.alert-success {
+    background-color: #dff0d8;
+}
+.alert-warning {
+    background-color: #fcf8e3;
+}
+
+body
+{
+	background: url(img/cork-board.png);
+	color: #000;
+    font-family: 'Courier Prime', monospace;
+    font-size: 21px;
+}
+
+.websideTopTxt
+{
+	background-color: #fff !important;
+	font-family: 'Pacifico', cursive;
+	min-height: 70px;
+
+}
+
+.websideTopPct
+{
+	background-color: #fff !important;
+}
+
+
+@media screen and (max-width: 991px)
+{
+	.websideTopPct
+	{
+		display:none !important;
+	}
+}
