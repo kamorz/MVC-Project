@@ -4,14 +4,46 @@
 
 {% block body %}
 
-    <h1>Welcome</h1>
 
     {% if current_user %}
         Hello {{ current_user.name }}.
 
         <a href="/logout">Log out</a>
+		
     {% else %}
-        <a href="/signup/new">Sign up</a> or <a href="/login/new">log in</a>.
+       <div class="row">				
+			<div class="col-12  col-md-8 offset-md-2 col-lg-6 offset-lg-3 text-center mb-5 mr-0 bg-white loginForm">					
+				<h1 class="h2 mt-4 mb-2">WITAJ, OSZCZĘDZACZU! </h1>
+				<div class="row">				
+					<div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 justify-content-center">
+						<img src="img/money_laptop.jpg" class="img-fluid" alt="Money from laptop">
+					</div>
+					
+					<div class="col-12 justify-content-center mb-4">			
+						<a class="btn btn-secondary" data-toggle="collapse" href="#hiddenContent" aria-expanded="false" aria-controls="hiddenContent">
+						Po co ta strona?<i class="icon-down-circle"></i>
+						</a>
+						<div class="collapse" id="hiddenContent">
+							<div class="card card-body">
+								<p>Czujesz, że wydajesz zbyt dużo? Próbujesz bezskutecznie uzbierać na nowy samochód, remont albo wakacje? Daj sobie pomóc! </p>
+								<p>Oszczędnościowy Pomocnik pozwoli Ci kontrolować wszystkie Twoje przychody i wydatki, abyś mógł panować nad swoim kontem i zmienić swoje życie na lepsze. Podejmujesz wyzwanie? </p>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-12 justify-content-center mb-2">
+						<a class="btn btn-outline-secondary" href="/login/new" role="button">Mam już konto <i class="icon-ok-circle"></i></a>
+						<a class="btn btn-outline-secondary" href="/signup/new" role="button">Załóż konto <i class="icon-pencil"></i></a>
+					</div>
+					
+				</div>						
+			</div>
+		</div>
+		
+		<div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 text-center mt-2 mb-2">
+				<a href="Author.html" target="_blank" class="btn btn-secondary btn-sm" role="button" aria-pressed="true"><i class="icon-user"></i> Więcej o autorze strony</a>
+		</div>
+		
     {% endif %}
 
 {% endblock %}
