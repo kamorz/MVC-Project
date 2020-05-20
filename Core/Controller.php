@@ -98,11 +98,11 @@ abstract class Controller
         if (! Auth::getUser()) {
 
             //Flash::addMessage('Please login to access that page');
-            Flash::addMessage('Please login to access that page', Flash::INFO);
+            Flash::addMessage('Tylko zalogowani użytkownicy mają dostęp do tych treści', Flash::INFO);
 
             Auth::rememberRequestedPage();
 
-            $this->redirect('/login');
+            $this->redirect('/login/new');
         }
     }
 }
