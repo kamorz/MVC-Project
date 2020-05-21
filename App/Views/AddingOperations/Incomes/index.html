@@ -10,7 +10,34 @@
 		<h1 class="h2">DODAWANIE PRZYCHODU </h1>
 			
 			<form action="/addingIncomes/save" method="post">
+			
+				<div class="form-group col-6 offset-3">
+					<label for="incomeType">Rodzaj przychodu</label>
+					<select class="form-control" id="incomeType" name="category">
+						<option>Rodzaj A</option>
+						<option>Rodzaj B</option>
+						<option>Rodzaj C</option>				
+						<option>Rodzaj D</option>				
+					</select>
+				</div>
 					
+				<div class="form-group col-6 offset-3">
+					<label for="amount">Kwota (zł)</label>
+					<input type="number" class="form-control" id="amount" step="0.01" name="cash" required>
+				</div>	
+				
+				<div class="form-group col-6 offset-3">
+					<label for="incomeDate">Data</label>
+					<input type="date" class="form-control" id="incomeDate" name="date" required>
+					
+				</div>
+				
+				<div class="form-group col-6 offset-3">
+					<label for="extraDescription">Dodatkowy opis</label>
+					<textarea class="form-control" id="extraDescription"  name="addDesc" rows="2" placeholder="Pole opcjonalne"></textarea>
+				</div>
+				
+				<button type="submit" class="btn btn-secondary mb-2 accountIntroduction">ZATWIERDŹ</button>
 				
 			</form>				
 		</div>
