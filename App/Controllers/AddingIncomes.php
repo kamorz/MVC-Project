@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use \Core\View;
+use \App\Models\Income;
 
 class AddingIncomes extends Authenticated
 {
@@ -19,7 +20,19 @@ class AddingIncomes extends Authenticated
      */
     public function saveAction()
     {
-        echo "dodano";
+       $income = new Income($_POST);
+
+        if ($income->add()) {
+
+            $this->redirect('/');
+
+        } else {
+
+            View::renderTemplate('/', [
+                'income' => $income
+            ]);
+
+        }
     }
 
     public function showAction()
@@ -27,3 +40,18 @@ class AddingIncomes extends Authenticated
         echo "pokazano";
     }
 }
+
+ /*$income = new Income($_POST);
+
+        if ($income->add()) {
+
+            $this->redirect('/');
+
+        } else {
+
+            View::renderTemplate('/newIncome', [
+                'income' => $income
+            ]);
+
+        }
+	*/
