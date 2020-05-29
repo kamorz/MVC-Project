@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Core\View;
 use \App\Models\Income;
+use \App\Flash;
 
 class AddingIncomes extends Authenticated
 {
@@ -24,7 +25,10 @@ class AddingIncomes extends Authenticated
 
         if ($income->add()) {
 
-            $this->redirect('/');
+           //$this->redirect('/addingincomes/success');
+		   Flash::addMessage('Pomyślnie dodano przychód do listy operacji!');
+           $this->redirect('/');
+		   
 
         } else {
 
@@ -34,24 +38,6 @@ class AddingIncomes extends Authenticated
 
         }
     }
-
-    public function showAction()
-    {
-        echo "pokazano";
-    }
+	
 }
 
- /*$income = new Income($_POST);
-
-        if ($income->add()) {
-
-            $this->redirect('/');
-
-        } else {
-
-            View::renderTemplate('/newIncome', [
-                'income' => $income
-            ]);
-
-        }
-	*/
