@@ -49,13 +49,8 @@ class Income extends \Core\Model
         $stmt->bindValue(':category', $category, PDO::PARAM_STR);
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
-
-        $stmt->execute();
-		
+        $stmt->execute();	
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
-		
-		$message = $row['id'];
-		echo "<script type='text/javascript'>alert('$message');</script>";
 		
 		return $row['id'];
 
