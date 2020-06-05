@@ -55,6 +55,7 @@ class Income extends \Core\Model
 		return $row['id'];
 
     }
+
 	
 	public static function getIncomeCategoriesFromDatabase()
     {

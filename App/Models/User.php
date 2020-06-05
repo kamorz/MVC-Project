@@ -197,12 +197,109 @@ class User extends \Core\Model
 
         $stmt->bindValue(':token_hash', $hashed_token, PDO::PARAM_STR);
         $stmt->bindValue(':user_id', $this->id, PDO::PARAM_INT);
-        //$stmt->bindValue(':expires_at', date('Y-m-d H:i:s', $expiry_timestamp), PDO::PARAM_STR);
         $stmt->bindValue(':expires_at', date('Y-m-d H:i:s', $this->expiry_timestamp), PDO::PARAM_STR);
 
         return $stmt->execute();
     }
 	
+	public static function ascibeDefaultCategoriesToUser()
+	{
+		$user = new User;
+		$user_id = static::findBiggestUserId();
+		
+		$user->ascribeIncomesToUser($user_id);
+		$user->ascribeExpensesToUser($user_id);
+		$user->ascribePaymentMethodsToUser($user_id);
+	}
 	
+	
+	function ascribeIncomesToUser($user_id)
+	{
+		$sql = 'SELECT * FROM incomes_category_default WHERE 1';
+		
+		$result = array();
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+		
+		$stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+        $stmt->execute();
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
+		{
+			$categoryName = $row['name'];
+			 $sql = 'INSERT INTO incomes_category_assigned_to_users (user_id, name)
+                VALUES (:user_id, :categoryName)';
+
+			$db1 = static::getDB();
+			$stmt1 = $db->prepare($sql);
+
+			$stmt1->bindValue(':categoryName', $categoryName, PDO::PARAM_STR);
+			$stmt1->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+			$stmt1->execute();
+		}		
+	}
+	
+	function ascribeExpensesToUser($user_id)
+	{
+		$sql = 'SELECT * FROM expenses_category_default WHERE 1';
+		
+		$result = array();
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+		
+		$stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+        $stmt->execute();
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
+		{
+			$categoryName = $row['name'];
+			 $sql = 'INSERT INTO expenses_category_assigned_to_users (user_id, name)
+                VALUES (:user_id, :categoryName)';
+
+			$db1 = static::getDB();
+			$stmt1 = $db->prepare($sql);
+
+			$stmt1->bindValue(':categoryName', $categoryName, PDO::PARAM_STR);
+			$stmt1->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+			$stmt1->execute();
+		}		
+	}
+	
+	function ascribePaymentMethodsToUser($user_id)
+	{
+		$sql = 'SELECT * FROM payment_methods_default WHERE 1';
+		
+		$result = array();
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+		
+		$stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+        $stmt->execute();
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
+		{
+			$categoryName = $row['name'];
+			 $sql = 'INSERT INTO payment_methods_assigned_to_users (user_id, name)
+                VALUES (:user_id, :categoryName)';
+
+			$db1 = static::getDB();
+			$stmt1 = $db->prepare($sql);
+
+			$stmt1->bindValue(':categoryName', $categoryName, PDO::PARAM_STR);
+			$stmt1->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+			$stmt1->execute();
+		}		
+	}
+	
+	public static function findBiggestUserId()
+	{
+		$sql = 'SELECT * FROM users ORDER BY id DESC LIMIT 1';
+		$dbUsers = static::getDB();
+		$stmtUsers = $dbUsers->prepare($sql);
+		$stmtUsers->execute();
+		
+		$row = $stmtUsers->fetch(PDO::FETCH_ASSOC);
+		return $row['id'];
+	}
 
 }

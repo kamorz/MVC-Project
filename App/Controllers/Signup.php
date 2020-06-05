@@ -52,6 +52,7 @@ class Signup extends \Core\Controller
      */
     public function successAction()
     {
+		User::ascibeDefaultCategoriesToUser();		
         View::renderTemplate('Signup/success.html');
     }
 }
