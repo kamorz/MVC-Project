@@ -202,4 +202,7 @@ class User extends \Core\Model
 
         return $stmt->execute();
     }
+	
+	
+
 }

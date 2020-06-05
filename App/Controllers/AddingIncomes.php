@@ -11,7 +11,9 @@ class AddingIncomes extends Authenticated
 
     public function newAction()
     {
-        View::renderTemplate('AddingOperations/Incomes/index.html');
+		$incomeCategoriesList= Income::getIncomeCategoriesFromDatabase();
+		$arg['incomes']= $incomeCategoriesList;
+        View::renderTemplate('AddingOperations/Incomes/index.html', $arg);
     }
 
     /**

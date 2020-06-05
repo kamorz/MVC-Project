@@ -13,11 +13,10 @@
 			
 				<div class="form-group col-6 offset-3">
 					<label for="incomeType">Rodzaj przychodu</label>
-					<select class="form-control" id="incomeType" name="category">
-						<option>Rodzaj A</option>
-						<option>Rodzaj B</option>
-						<option>Rodzaj C</option>				
-						<option>Rodzaj D</option>				
+					<select class="form-control" id="item_list" name="category">
+						{% for item in incomes %}
+						   <option>{{ item}}</option>
+						{% endfor %}
 					</select>
 				</div>
 					
@@ -39,8 +38,17 @@
 				
 				<button type="submit" class="btn btn-secondary mb-2 accountIntroduction">ZATWIERDŹ</button>		
 				
-			</form>				
+			</form>	
+			
+			<ul>
+				{% for inc in income %}
+					<li>{{ inc.name|e }}</li>
+				{% endfor %}
+			</ul>
+
 		</div>
+		
+		
 	</div>
 	
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
