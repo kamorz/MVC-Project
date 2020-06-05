@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Core\View;
 use \App\Models\User;
+use \App\Models\Income;
 use \App\Auth;
 use \App\Flash;
 
@@ -39,6 +40,8 @@ class Login extends \Core\Controller
         if ($user) {
 
             Auth::login($user, $remember_me);
+			
+			//Income::findIncomeCategories($user);
 
             Flash::addMessage('Zalogowano pomyślnie');
 

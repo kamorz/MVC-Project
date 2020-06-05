@@ -55,4 +55,25 @@ class Income extends \Core\Model
 		return $row['id'];
 
     }
+	
+	public static function getIncomeCategoriesFromDatabase()
+    {
+		$id = ($_SESSION['user_id']);
+        $sql = 'SELECT * FROM incomes_category_assigned_to_users WHERE user_id = :id';
+		
+		$result = array();
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		
+		$stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+        $stmt->execute();
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
+		{
+			$result[] = $row['name'];
+		}		
+		return $result;
+    }
+
 }
