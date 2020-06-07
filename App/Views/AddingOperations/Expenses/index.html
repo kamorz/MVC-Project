@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Dodawanie wydatków{% endblock %}
+
+{% block body %}
+
+   <div class="row">
+		<div class="col-12 col-md-8 offset-md-2 col-lg-6 mt-lg-5 offset-lg-3 text-center mb-5 mr-0 bg-white loginForm">
+			
+		<h1 class="h2">DODAWANIE WYDATKU </h1>
+			
+			<form action="/addingIncomes/save" method="post">
+			
+				<div class="form-group col-6 offset-3">
+					<label for="incomeType">Rodzaj wydatku</label>
+					<select class="form-control" id="item_list" name="category">
+						{% for item in incomes %}
+						   <option>{{ item}}</option>
+						{% endfor %}
+					</select>
+				</div>
+					
+				<div class="form-group col-6 offset-3">
+					<label for="amount">Kwota (zł)</label>
+					<input type="number" class="form-control" id="amount" step="0.01" name="cash" required>
+				</div>	
+				
+				<div class="form-group col-6 offset-3">
+					<label for="incomeType">Metoda Płatności</label>
+					<select class="form-control" id="item_list" name="category">
+						{% for item in paymentMethods %}
+						   <option>{{ item}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				
+				<div class="form-group col-6 offset-3">
+					<label for="incomeDate">Data</label>
+					<input type="date" class="form-control" id="expenseDate" name="date" required>
+					
+				</div>
+				
+				<div class="form-group col-6 offset-3">
+					<label for="extraDescription">Dodatkowy opis</label>
+					<textarea class="form-control" id="extraDescription"  name="addDesc" rows="2" placeholder="Pole opcjonalne"></textarea>
+				</div>
+				
+				<button type="submit" class="btn btn-secondary mb-2 accountIntroduction">ZATWIERDŹ</button>		
+				
+			</form>	
+			
+			<ul>
+				{% for inc in income %}
+					<li>{{ inc.name|e }}</li>
+				{% endfor %}
+			</ul>
+
+		</div>
+		
+		
+	</div>
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	
+	<script src="js/bootstrap.min.js"></script>
+
+{% endblock %}
+
