@@ -9,12 +9,12 @@
 			
 		<h1 class="h2">DODAWANIE WYDATKU </h1>
 			
-			<form action="/addingIncomes/save" method="post">
+			<form action="/addingExpenses/save" method="post">
 			
 				<div class="form-group col-6 offset-3">
 					<label for="incomeType">Rodzaj wydatku</label>
 					<select class="form-control" id="item_list" name="category">
-						{% for item in incomes %}
+						{% for item in expenses %}
 						   <option>{{ item}}</option>
 						{% endfor %}
 					</select>
@@ -26,8 +26,8 @@
 				</div>	
 				
 				<div class="form-group col-6 offset-3">
-					<label for="incomeType">Metoda Płatności</label>
-					<select class="form-control" id="item_list" name="category">
+					<label for="expenseType">Metoda Płatności</label>
+					<select class="form-control" id="item_list" name="paymentMethod">
 						{% for item in paymentMethods %}
 						   <option>{{ item}}</option>
 						{% endfor %}

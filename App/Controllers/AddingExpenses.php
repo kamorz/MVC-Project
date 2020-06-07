@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use \Core\View;
-use \App\Models\Income;
+use \App\Models\Expense;
 use \App\Flash;
 
 class AddingExpenses extends Authenticated
@@ -11,10 +11,12 @@ class AddingExpenses extends Authenticated
 
     public function newAction()
     {
-		//$incomeCategoriesList= Income::getIncomeCategoriesFromDatabase();
-		//$arg['incomes']= $incomeCategoriesList;
-        View::renderTemplate('AddingOperations/Expenses/index.html');
-        //View::renderTemplate('AddingOperations/Expenses/index.html', $arg);
+		$incomeCategoriesList= Expense::getExpenseCategoriesFromDatabase();
+		$paymentMethodsList= Expense::getPaymentMethodsFromDatabase();
+		$arg['expenses']= $incomeCategoriesList;
+		$arg['paymentMethods']= $paymentMethodsList;
+        //View::renderTemplate('AddingOperations/Expenses/index.html');
+        View::renderTemplate('AddingOperations/Expenses/index.html', $arg);
     }
 
     /**
@@ -22,27 +24,27 @@ class AddingExpenses extends Authenticated
      *
      * @return void
      */
-	 /*
+	 
 	 
     public function saveAction()
     {
-       $income = new Income($_POST);
+       $income = new Expense($_POST);
 
         if ($income->add()) {
 
            //$this->redirect('/addingincomes/success');
-		   Flash::addMessage('Pomyślnie dodano przychód do listy operacji!');
+		   Flash::addMessage('Pomyślnie dodano wydatek do listy operacji!');
            $this->redirect('/');
 		   
 
         } else {
 
             View::renderTemplate('/', [
-                'income' => $income
+                'expense' => $expense
             ]);
 
         }
     }
-	*/
+	
 }
 
