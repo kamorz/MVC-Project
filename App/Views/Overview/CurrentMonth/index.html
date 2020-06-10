@@ -5,13 +5,33 @@
 {% block body %}
 
    <div class="row">
-		<div class="col-12 col-md-8 offset-md-2 col-lg-6 mt-lg-5 offset-lg-3 text-center mb-5 mr-0 bg-white loginForm">
 			
-		<h1 class="h2">PRZEGLĄD OPERACJI - OBECNY MIESIĄC </h1>
+		<div class="col-12 col-lg-10 offset-lg-1 text-center mb-5 mt-lg-3 mr-0 bg-white tab-content">
+									
+			<h1 class="h3">Przegląd przychodów- bieżący miesiąc</h1>
 			
-			
+			<table class="table table-bordered">
+			  <thead>
+					<tr>
+					  <th>Data</th>
+					  <th>Przychód</th>
+					  <th>Kwota</th>
+					  <th>Opis</th>
+					</tr>
+				
+			  </thead>
+			  <tbody>
+			  
+			  {% for item in incomes %}
+			  <td>{{ item}}</td>
+			  {% endfor %}
+			  
 
-		</div>			
+			  </tbody>
+			</table>
+			
+		</div>
+													
 	</div>
 	
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

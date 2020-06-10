@@ -3,19 +3,16 @@
 namespace App\Controllers;
 
 use \Core\View;
-use \App\Models\Expense;
+use \App\Models\Overview;
 use \App\Flash;
 
 class Balance extends Authenticated
 {
 	public function currentMonthAction()
     {
-		//$incomeCategoriesList= Expense::getExpenseCategoriesFromDatabase();
-		//$paymentMethodsList= Expense::getPaymentMethodsFromDatabase();
-		//$arg['expenses']= $incomeCategoriesList;
-		//$arg['paymentMethods']= $paymentMethodsList;
-        //View::renderTemplate('AddingOperations/Expenses/index.html');
-        View::renderTemplate('Overview/CurrentMonth/index.html');
-        //View::renderTemplate('Overview/CurrentMonth/index.html', $arg);
+		$currentMonthIncomes= Overview:: findIncomesFromCurrentMonthInDatabase();
+		$arg['incomes']= $currentMonthIncomes;
+
+        View::renderTemplate('Overview/CurrentMonth/index.html', $arg);
     }
 }
