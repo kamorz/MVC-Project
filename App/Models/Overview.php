@@ -12,9 +12,7 @@ class Overview extends \Core\Model
     {
 		$id = ($_SESSION['user_id']);
 		$currentMonth = date("m");
-		$result = [];
-		$result_full = [];
-		$i=0;
+		$counter=0;
 		
         $sql = "SELECT * FROM incomes WHERE user_id = :id AND EXTRACT(month FROM date_of_income) = '$currentMonth' ORDER BY date_of_income DESC";
 		
@@ -32,8 +30,8 @@ class Overview extends \Core\Model
 			$result['category'] = static::findIncomeCategoryName($row['income_category_assigned_to_user_id']);
 			$result['amount'] = $row['amount'];
 			$result['comment'] = $row['income_comment'];	
-			$result_full[$i] = $result;
-			$i++;
+			$result_full[$counter] = $result;
+			$counter++;
 		}	 
 		return $result_full;
 		
