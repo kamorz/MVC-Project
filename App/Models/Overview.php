@@ -16,7 +16,7 @@ class Overview extends \Core\Model
 		$result_full = [];
 		$i=0;
 		
-        $sql = "SELECT * FROM incomes WHERE user_id = :id AND EXTRACT(month FROM date_of_income) = '$currentMonth'";
+        $sql = "SELECT * FROM incomes WHERE user_id = :id AND EXTRACT(month FROM date_of_income) = '$currentMonth' ORDER BY date_of_income DESC";
 		
         $db = static::getDB();
         $stmt = $db->prepare($sql);
