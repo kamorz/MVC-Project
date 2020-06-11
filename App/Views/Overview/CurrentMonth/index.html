@@ -23,9 +23,15 @@
 			  <tbody>
 			  
 			  {% for item in incomes %}
-			  <td>{{ item}}</td>
+				  <tr>
+
+				  <td>{{ item.date}}</td>
+				  <td>{{ item.category}}</td>
+				  <td>{{ item.amount}}</td>
+				  <td>{{ item.comment}}</td>
+
+				  <tr/>
 			  {% endfor %}
-			  
 
 			  </tbody>
 			</table>
