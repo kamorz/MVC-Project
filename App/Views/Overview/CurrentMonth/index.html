@@ -9,7 +9,7 @@
 		<div class="col-12 col-lg-10 offset-lg-1 text-center mb-5 mt-lg-3 mr-0 bg-white tab-content">
 									
 			<h1 class="h3 mb-4 mt-3">Bieżący miesiąc</h1>
-			<h2 class="h5">Lista przychodów</h2>
+			<h2 class="h5">Lista przychodów:</h2>
 			
 			<table class="table table-bordered h6">
 			  <thead>
@@ -37,7 +37,7 @@
 			  </tbody>
 			</table>
 			
-			<h2 class="h5 mt-5">Przychody - podział na kategorie</h2>
+			<h2 class="h5 mt-5">Przychody - podział na kategorie:</h2>
 			
 			<table class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 table table-bordered h6">
 			  <thead>
@@ -49,14 +49,17 @@
 			  </thead>
 			  <tbody>
 			  
-			  {% for item in incomes %}
+			  {% for item in incomeTypes %}
 				  <tr>
 
-				  <td>{{ 1}}</td>
+				  <td>{{ item}}</td>
 				  <td>{{ 2}}</td>
 
 				  <tr/>
 			  {% endfor %}
+			  
+				<td><h2 class="text-bold">SUMA</h2></td>
+				<td>{{ 2}}</td>
 
 			  </tbody>
 			</table>

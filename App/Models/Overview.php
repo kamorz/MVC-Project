@@ -8,7 +8,7 @@ use \App\Models\User;
 
 class Overview extends \Core\Model
 {
-		public static function findIncomesFromCurrentMonthInDatabase()
+	public static function findIncomesFromCurrentMonthInDatabase()
     {
 		$id = ($_SESSION['user_id']);
 		$currentMonth = date("m");
@@ -37,7 +37,7 @@ class Overview extends \Core\Model
 		
     }
 	
-		public static function findIncomeCategoryName($id)
+	public static function findIncomeCategoryName($id)
     {
         $sql = 'SELECT name FROM incomes_category_assigned_to_users WHERE id = :id';
 
@@ -52,4 +52,23 @@ class Overview extends \Core\Model
 		return $row['name'];
 
     }
+	
+	public static function findAllIncomeCategoriesAssignedToUser()
+	{
+		$id = ($_SESSION['user_id']);
+		$sql = 'SELECT name FROM incomes_category_assigned_to_users WHERE user_id = :id';
+		
+		$db = static::getDB();
+        $stmt = $db->prepare($sql);
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		
+		$stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+        $stmt->execute();
+		
+		while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
+		{
+			$result[] = $row['name'];
+		}		
+		return $result;
+	}
 }
