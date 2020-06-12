@@ -11,7 +11,7 @@ class Overview extends \Core\Model
 	public static function findIncomesFromCurrentMonthInDatabase()
     {
 		$id = ($_SESSION['user_id']);
-		$currentMonth = date("m");
+		$currentMonth = static::findSuitableMonth();
 		$counter=0;
 		$result_full = array();
 		
@@ -86,8 +86,8 @@ class Overview extends \Core\Model
 	
 	public static function findSumOfIncomeCategory($name, $user_id)
     {
-		$category_id = static::findIncomeCategoryID($name);
-		$currentMonth = date("m");
+		$category_id = static::findIncomeCategoryID($name, $user_id);
+		$currentMonth = static::findSuitableMonth();
 		$sum = 0;
 		
         $sql = "SELECT amount FROM incomes WHERE income_category_assigned_to_user_id = :category_id AND user_id = :user_id AND EXTRACT(month FROM date_of_income) = '$currentMonth' ORDER BY date_of_income DESC";
@@ -106,13 +106,14 @@ class Overview extends \Core\Model
 
     }
 	
-	public static function findIncomeCategoryID($name)
+	public static function findIncomeCategoryID($name, $user_id)
     {
-        $sql = 'SELECT id FROM incomes_category_assigned_to_users WHERE name = :name';
+        $sql = 'SELECT id FROM incomes_category_assigned_to_users WHERE name = :name AND  user_id = :user_id';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
         $stmt->execute();	
@@ -121,4 +122,10 @@ class Overview extends \Core\Model
 		return $row['id'];
 
     }
+	
+	public static function findSuitableMonth()
+	{
+		$currentMonth = date("m");
+		return $currentMonth;
+	}
 }
