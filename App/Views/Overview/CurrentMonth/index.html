@@ -9,7 +9,10 @@
 		<div class="col-12 col-lg-10 offset-lg-1 text-center mb-5 mt-lg-3 mr-0 bg-white tab-content">
 									
 			<h1 class="h3 mb-4 mt-3">Bieżący miesiąc</h1>
+
 			<h2 class="h5">Lista przychodów:</h2>
+			
+			{% if incomeTypes.total > 0 %}
 			
 			<table class="table table-bordered h6">
 			  <thead>
@@ -28,7 +31,7 @@
 
 				  <td>{{ item.date}}</td>
 				  <td>{{ item.category}}</td>
-				  <td>{{ item.amount}}</td>
+				  <td>{{ item.amount|number_format(2, ',','')}}</td>
 				  <td>{{ item.comment}}</td>
 
 				  <tr/>
@@ -49,21 +52,23 @@
 			  </thead>
 			  <tbody>
 			  
-			  {% for item in incomeTypes %}
+			  {% for item in incomeTypes | filter(item => item.sum > 0)%}
 				  <tr>
 
-				  <td>{{ item}}</td>
-				  <td>{{ 2}}</td>
+				  <td>{{ item.name}}</td>
+				  <td>{{ item.sum|number_format(2, ',','')}}</td>
 
 				  <tr/>
 			  {% endfor %}
 			  
 				<td><h2 class="text-bold">SUMA</h2></td>
-				<td>{{ 2}}</td>
+				<td>{{ incomeTypes.total|number_format(2, ',','')}}</td>
 
 			  </tbody>
 			</table>
-			
+		{% else %}
+		<h2 class="h5">Brak przychodów w wybranym okresie</h2>
+		{% endif %}	
 		</div>
 													
 	</div>

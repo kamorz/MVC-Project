@@ -13,6 +13,7 @@ class Overview extends \Core\Model
 		$id = ($_SESSION['user_id']);
 		$currentMonth = date("m");
 		$counter=0;
+		$result_full = array();
 		
         $sql = "SELECT * FROM incomes WHERE user_id = :id AND EXTRACT(month FROM date_of_income) = '$currentMonth' ORDER BY date_of_income DESC";
 		
@@ -25,7 +26,6 @@ class Overview extends \Core\Model
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
 		{
-			//$new = array_push($result, $row['date_of_income'], $row['income_category_assigned_to_user_id'], $row['amount'], $row['income_comment']);
 			$result['date'] = $row['date_of_income'];
 			$result['category'] = static::findIncomeCategoryName($row['income_category_assigned_to_user_id']);
 			$result['amount'] = $row['amount'];
@@ -33,7 +33,11 @@ class Overview extends \Core\Model
 			$result_full[$counter] = $result;
 			$counter++;
 		}	 
+		if ($result_full>0)
+		{
 		return $result_full;
+		}		
+		else return 0;
 		
     }
 	
@@ -55,20 +59,66 @@ class Overview extends \Core\Model
 	
 	public static function findAllIncomeCategoriesAssignedToUser()
 	{
-		$id = ($_SESSION['user_id']);
-		$sql = 'SELECT name FROM incomes_category_assigned_to_users WHERE user_id = :id';
+		$user_id = ($_SESSION['user_id']);
+		$counter=0;
+		$sum=0;
+		
+		$sql = 'SELECT name FROM incomes_category_assigned_to_users WHERE user_id = :user_id';
 		
 		$db = static::getDB();
         $stmt = $db->prepare($sql);
-		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		$stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 		
 		$stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
         $stmt->execute();
 		
 		while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
 		{
-			$result[] = $row['name'];
+			$result['name'] = $row['name'];
+			$result['sum'] =  static::findSumOfIncomeCategory($row['name'], $user_id);
+			$sum += $result['sum'];
+			$result_full[$counter] = $result;
+			$counter++;
 		}		
-		return $result;
+		$result_full['total']=$sum;
+		return $result_full;
 	}
+	
+	public static function findSumOfIncomeCategory($name, $user_id)
+    {
+		$category_id = static::findIncomeCategoryID($name);
+		$currentMonth = date("m");
+		$sum = 0;
+		
+        $sql = "SELECT amount FROM incomes WHERE income_category_assigned_to_user_id = :category_id AND user_id = :user_id AND EXTRACT(month FROM date_of_income) = '$currentMonth' ORDER BY date_of_income DESC";
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+        $stmt->execute();	
+		while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
+		{
+			$sum += $row['amount'];
+		}
+		return $sum;
+
+    }
+	
+	public static function findIncomeCategoryID($name)
+    {
+        $sql = 'SELECT id FROM incomes_category_assigned_to_users WHERE name = :name';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+        $stmt->execute();	
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+		return $row['id'];
+
+    }
 }
