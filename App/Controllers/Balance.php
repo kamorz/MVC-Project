@@ -10,10 +10,16 @@ class Balance extends Authenticated
 {
 	public function currentMonthAction()
     {
-		$currentMonthIncomes= Overview:: findIncomesFromCurrentMonthInDatabase();
 		$incomeCategoriesAssignedToUser= Overview:: findAllIncomeCategoriesAssignedToUser();
-		$arg['incomes']= $currentMonthIncomes;
+		$arg['incomes']= Overview::findIncomesFromCurrentMonthInDatabase();
 		$arg['incomeTypes']= $incomeCategoriesAssignedToUser;
+		
+		$expenseCategoriesAssignedToUser= Overview:: findAllExpenseCategoriesAssignedToUser();
+		$arg['expenses']= Overview::findExpensesFromCurrentMonthInDatabase();
+		$arg['expenseTypes']= $expenseCategoriesAssignedToUser;		
+		
+		$totalBalance = $incomeCategoriesAssignedToUser['total'] - $expenseCategoriesAssignedToUser['total'];
+		$arg['total_balance']= $totalBalance;
 
         View::renderTemplate('Overview/CurrentMonth/index.html', $arg);
     }
