@@ -8,10 +8,10 @@ use \App\Models\User;
 
 class Overview extends \Core\Model
 {
-	public static function findIncomesFromCurrentMonthInDatabase()
+	public static function findIncomesFromCurrentMonthInDatabase($monthDifference)
     {
 		$id = ($_SESSION['user_id']);
-		$currentMonth = static::findSuitableMonth();
+		$currentMonth = static::findSuitableMonth() - $monthDifference;
 		$counter=0;
 		$result_full = array();
 		
@@ -41,10 +41,10 @@ class Overview extends \Core\Model
 		
     }
 	
-	public static function findExpensesFromCurrentMonthInDatabase()
+	public static function findExpensesFromCurrentMonthInDatabase($monthDifference)
     {
 		$id = ($_SESSION['user_id']);
-		$currentMonth = static::findSuitableMonth();
+		$currentMonth = static::findSuitableMonth() - $monthDifference;
 		$counter=0;
 		$result_full = array();
 		
@@ -124,9 +124,10 @@ class Overview extends \Core\Model
 
     }
 	
-	public static function findAllIncomeCategoriesAssignedToUser()
+	public static function findAllIncomeCategoriesAssignedToUser($monthDifference)
 	{
 		$user_id = ($_SESSION['user_id']);
+		$currentMonth = static::findSuitableMonth() - $monthDifference;
 		$counter=0;
 		$sum=0;
 		
@@ -142,7 +143,7 @@ class Overview extends \Core\Model
 		while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
 		{
 			$result['name'] = $row['name'];
-			$result['sum'] =  static::findSumOfIncomeCategory($row['name'], $user_id);
+			$result['sum'] =  static::findSumOfIncomeCategory($row['name'], $user_id, $currentMonth);
 			$sum += $result['sum'];
 			$result_full[$counter] = $result;
 			$counter++;
@@ -151,9 +152,10 @@ class Overview extends \Core\Model
 		return $result_full;
 	}
 	
-	public static function findAllExpenseCategoriesAssignedToUser()
+	public static function findAllExpenseCategoriesAssignedToUser($monthDifference)
 	{
 		$user_id = ($_SESSION['user_id']);
+		$currentMonth = static::findSuitableMonth() - $monthDifference;
 		$counter=0;
 		$sum=0;
 		
@@ -169,7 +171,7 @@ class Overview extends \Core\Model
 		while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
 		{
 			$result['name'] = $row['name'];
-			$result['sum'] =  static::findSumOfExpenseCategory($row['name'], $user_id);
+			$result['sum'] =  static::findSumOfExpenseCategory($row['name'], $user_id, $currentMonth);
 			$sum += $result['sum'];
 			$result_full[$counter] = $result;
 			$counter++;
@@ -178,10 +180,9 @@ class Overview extends \Core\Model
 		return $result_full;
 	}
 	
-	public static function findSumOfIncomeCategory($name, $user_id)
+	public static function findSumOfIncomeCategory($name, $user_id, $currentMonth)
     {
-		$category_id = static::findIncomeCategoryID($name, $user_id);
-		$currentMonth = static::findSuitableMonth();
+		$category_id = static::findIncomeCategoryID($name, $user_id);		
 		$sum = 0;
 		
         $sql = "SELECT amount FROM incomes WHERE income_category_assigned_to_user_id = :category_id AND user_id = :user_id AND EXTRACT(month FROM date_of_income) = '$currentMonth' ORDER BY date_of_income DESC";
@@ -200,10 +201,9 @@ class Overview extends \Core\Model
 
     }
 	
-	public static function findSumOfExpenseCategory($name, $user_id)
+	public static function findSumOfExpenseCategory($name, $user_id, $currentMonth)
     {
 		$category_id = static::findExpenseCategoryID($name, $user_id);
-		$currentMonth = static::findSuitableMonth();
 		$sum = 0;
 		
         $sql = "SELECT amount FROM expenses WHERE expense_category_assigned_to_user_id = :category_id AND user_id = :user_id AND EXTRACT(month FROM date_of_expense) = '$currentMonth' ORDER BY date_of_expense DESC";
