@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+
+{% block title %}Przegląd operacji bieżącego miesiąca{% endblock %}
+
+{% block body %}
+
+   <div class="row">
+			
+		<div class="col-12 col-lg-10 offset-lg-1 text-center mb-5 mt-lg-3 mr-0 bg-white tab-content">
+									
+			<h1 class="h2 mb-4 mt-3">Bieżący miesiąc</h1>
+
+			<h2 class="h4">Lista przychodów:</h2>
+			
+			{% if incomeTypes.total > 0 %}
+			
+			<table class="table table-bordered h6">
+			  <thead class="thead-light">
+					<tr>
+					  <th>Data</th>
+					  <th>Przychód</th>
+					  <th>Kwota</th>
+					  <th>Opis</th>
+					</tr>
+				
+			  </thead>
+			  <tbody>
+			  
+			  {% for item in incomes %}
+				  <tr>
+
+				  <td>{{ item.date}}</td>
+				  <td>{{ item.category}}</td>
+				  <td>{{ item.amount|number_format(2, ',','')}}</td>
+				  <td>{{ item.comment}}</td>
+
+				  <tr/>
+			  {% endfor %}
+
+			  </tbody>
+			</table>
+			
+			<h2 class="h5 mt-5">Przychody - podział na kategorie:</h2>
+			
+			<table class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 table table-bordered h6">
+			  <thead class="thead-light">
+					<tr>
+					  <th>Rodzaj</th>
+					  <th>Suma</th>
+					</tr>
+				
+			  </thead>
+			  <tbody>
+			  
+			  {% for item in incomeTypes | filter(item => item.sum > 0)%}
+				  <tr>
+
+				  <td>{{ item.name}}</td>
+				  <td>{{ item.sum|number_format(2, ',','')}}</td>
+
+				  <tr/>
+			  {% endfor %}
+			  
+				<td><h3 class="text-bold">Wszystkie</h3></td>
+				<td>{{ incomeTypes.total|number_format(2, ',','')}}</td>
+
+			  </tbody>
+			</table>
+			
+			{% else %}
+			<h2 class="h5">Brak przychodów w wybranym okresie</h2>
+			{% endif %}	
+			
+			<br/><br/>
+			
+			<h2 class="h4" >Lista wydatków:</h2>
+			
+			{% if expenseTypes.total > 0 %}
+			
+			<table class="table table-bordered h6">
+			  <thead class="thead-light">
+					<tr>
+					  <th>Data</th>
+					  <th>Przychód</th>
+					  <th>Kwota</th>
+					  <th>Sposób płatności</th>
+					  <th>Opis</th>
+					</tr>
+				
+			  </thead>
+			  <tbody>
+			  
+			  {% for item in expenses %}
+				  <tr>
+
+				  <td>{{ item.date}}</td>
+				  <td>{{ item.category}}</td>
+				  <td>{{ item.amount|number_format(2, ',','')}}</td>
+				  <td>{{ item.method}}</td>
+				  <td>{{ item.comment}}</td>
+
+				  <tr/>
+			  {% endfor %}
+
+			  </tbody>
+			</table>
+			
+			<h2 class="h5 mt-5">Wydatki - podział na kategorie:</h2>
+			
+			<table class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 table table-bordered h6">
+			  <thead class="thead-light">
+					<tr>
+					  <th>Rodzaj</th>
+					  <th>Suma</th>
+					</tr>
+				
+			  </thead>
+			  <tbody>
+			  
+			  {% for item in expenseTypes | filter(item => item.sum > 0)%}
+				  <tr>
+
+				  <td>{{ item.name}}</td>
+				  <td>{{ item.sum|number_format(2, ',','')}}</td>
+
+				  <tr/>
+			  {% endfor %}
+			  
+				<td><h3 class="text-bold">Wszystkie</h3></td>
+				<td>{{ expenseTypes.total|number_format(2, ',','')}}</td>
+
+			  </tbody>
+			</table>
+				
+			{% else %}
+			<h2 class="h5">Brak wydatków w wybranym okresie</h2>
+			{% endif %}	
+			
+			<br/><br/>
+			
+			<table class="table table-bordered h6">
+				<thead class="thead-light">
+					<tr><th><h2 class="h4">Całkowity bilans bieżącego miesiąca: {{ total_balance|number_format(2, ',','')}}</h2></th><tr>
+				</thread>
+			</table>
+		
+		</div>
+													
+	</div>
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	
+	<script src="js/bootstrap.min.js"></script>
+
+{% endblock %}
