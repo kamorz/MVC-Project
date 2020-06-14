@@ -15,12 +15,12 @@ class Balance extends Authenticated
 		$arg['start']= $start;
 		$arg['final']=$final;
 		
-		$incomeCategoriesAssignedToUser= Overview:: findAllIncomeCategoriesAssignedToUser('0');
-		$arg['incomes']= Overview::findIncomesFromCurrentMonthInDatabase('0');
+		$incomeCategoriesAssignedToUser= Overview:: findAllIncomeCategoriesAssignedToUser($start, $final);
+		$arg['incomes']= Overview::findIncomesFromCurrentMonthInDatabase($start, $final);
 		$arg['incomeTypes']= $incomeCategoriesAssignedToUser;
 		
-		$expenseCategoriesAssignedToUser= Overview:: findAllExpenseCategoriesAssignedToUser('0');
-		$arg['expenses']= Overview::findExpensesFromCurrentMonthInDatabase('0');
+		$expenseCategoriesAssignedToUser= Overview:: findAllExpenseCategoriesAssignedToUser($start, $final);
+		$arg['expenses']= Overview::findExpensesFromCurrentMonthInDatabase($start, $final);
 		$arg['expenseTypes']= $expenseCategoriesAssignedToUser;		
 		
 		$totalBalance = $incomeCategoriesAssignedToUser['total'] - $expenseCategoriesAssignedToUser['total'];
@@ -31,15 +31,17 @@ class Balance extends Authenticated
 	
 	public function previousMonthAction()
     {	
-		$arg['start']=date('Y-m-d', strtotime(date('Y-m-01').' -1 MONTH'));
-		$arg['final']=date("Y-m-t", strtotime(' -1 MONTH'));
+		$start=date('Y-m-d', strtotime(date('Y-m-01').' -1 MONTH'));
+		$final=date("Y-m-t", strtotime(' -1 MONTH'));
+		$arg['start']= $start;
+		$arg['final']=$final;
 		
-		$incomeCategoriesAssignedToUser= Overview:: findAllIncomeCategoriesAssignedToUser('1');
-		$arg['incomes']= Overview::findIncomesFromCurrentMonthInDatabase('1');
+		$incomeCategoriesAssignedToUser= Overview:: findAllIncomeCategoriesAssignedToUser($start, $final);
+		$arg['incomes']= Overview::findIncomesFromCurrentMonthInDatabase($start, $final);
 		$arg['incomeTypes']= $incomeCategoriesAssignedToUser;
 
-		$expenseCategoriesAssignedToUser= Overview:: findAllExpenseCategoriesAssignedToUser('1');
-		$arg['expenses']= Overview::findExpensesFromCurrentMonthInDatabase('1');
+		$expenseCategoriesAssignedToUser= Overview:: findAllExpenseCategoriesAssignedToUser($start, $final);
+		$arg['expenses']= Overview::findExpensesFromCurrentMonthInDatabase($start, $final);
 		$arg['expenseTypes']= $expenseCategoriesAssignedToUser;		
 		
 		$totalBalance = $incomeCategoriesAssignedToUser['total'] - $expenseCategoriesAssignedToUser['total'];
