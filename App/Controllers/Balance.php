@@ -10,6 +10,11 @@ class Balance extends Authenticated
 {
 	public function currentMonthAction()
     {
+		$start = date('Y-m-d', strtotime(date('Y-m-01')));
+		$final = date("Y-m-t", strtotime('today'));
+		$arg['start']= $start;
+		$arg['final']=$final;
+		
 		$incomeCategoriesAssignedToUser= Overview:: findAllIncomeCategoriesAssignedToUser('0');
 		$arg['incomes']= Overview::findIncomesFromCurrentMonthInDatabase('0');
 		$arg['incomeTypes']= $incomeCategoriesAssignedToUser;
@@ -25,13 +30,14 @@ class Balance extends Authenticated
     }
 	
 	public function previousMonthAction()
-    {
+    {	
+		$arg['start']=date('Y-m-d', strtotime(date('Y-m-01').' -1 MONTH'));
+		$arg['final']=date("Y-m-t", strtotime(' -1 MONTH'));
+		
 		$incomeCategoriesAssignedToUser= Overview:: findAllIncomeCategoriesAssignedToUser('1');
 		$arg['incomes']= Overview::findIncomesFromCurrentMonthInDatabase('1');
 		$arg['incomeTypes']= $incomeCategoriesAssignedToUser;
-		$dt = "2008-02-23";
-		$arg['proba']='First day : '. date("Y-m-01", strtotime($dt)).' - Last day : '. date("Y-m-t", strtotime($dt));
-		
+
 		$expenseCategoriesAssignedToUser= Overview:: findAllExpenseCategoriesAssignedToUser('1');
 		$arg['expenses']= Overview::findExpensesFromCurrentMonthInDatabase('1');
 		$arg['expenseTypes']= $expenseCategoriesAssignedToUser;		
