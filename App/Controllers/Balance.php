@@ -29,6 +29,7 @@ class Balance extends Authenticated
         View::renderTemplate('Overview/CurrentMonth/index.html', $arg);
     }
 	
+	
 	public function previousMonthAction()
     {	
 		$start=date('Y-m-d', strtotime(date('Y-m-01').' -1 MONTH'));
@@ -50,10 +51,19 @@ class Balance extends Authenticated
         View::renderTemplate('Overview/PreviousMonth/index.html', $arg);
     }
 	
+	
 	public function selectedPeriodAction()
     {	
-		$start=date('Y-m-d', strtotime(date('Y-m-01').' -2 MONTH'));
-		$final=date("Y-m-t", strtotime(' -2 MONTH'));
+		if (isset( $_POST['beginningDate'] ) && isset( $_POST['endingDate'] ))
+		{
+		$start = date('Y-m-d', strtotime($_POST['beginningDate']));;
+		$final = date('Y-m-d', strtotime($_POST['endingDate']));;
+		}
+		else
+		{
+		$start = date("Y-m-d", strtotime('-1 month'));;
+		$final = date("Y-m-d", strtotime('today'));
+		}
 		$arg['start']= $start;
 		$arg['final']=$final;
 		
