@@ -38,6 +38,7 @@ $router->add('newIncome', ['controller' => 'AddingIncomes', 'action' => 'new']);
 $router->add('newExpense', ['controller' => 'AddingExpenses', 'action' => 'new']);
 $router->add('currentMonthOverview', ['controller' => 'Balance', 'action' => 'currentMonth']);
 $router->add('previousMonthOverview', ['controller' => 'Balance', 'action' => 'previousMonth']);
+$router->add('selectedPeriodOverview', ['controller' => 'Balance', 'action' => 'selectedPeriod']);
 $router->add('logout', ['controller' => 'Login', 'action' => 'destroy']);
 $router->add('{controller}/{action}');
 

@@ -8,7 +8,8 @@
 			
 		<div class="col-12 col-lg-10 offset-lg-1 text-center mb-5 mt-lg-3 mr-0 bg-white tab-content">
 									
-			<h1 class="h2 mb-4 mt-3">Poprzedni miesiąc</h1>
+			<h1 class="h2 mb-0 mt-3">Poprzedni miesiąc</h1>
+			<h1 class="h4 mb-4 mt-0">({{ start}} - {{ final }})</h1>
 
 			<h2 class="h4">Lista przychodów:</h2>
 			
@@ -18,7 +19,7 @@
 			  <thead class="thead-light">
 					<tr>
 					  <th>Data</th>
-					  <th>Przychód</th>
+					  <th>Rodzaj</th>
 					  <th>Kwota</th>
 					  <th>Opis</th>
 					</tr>
@@ -81,7 +82,7 @@
 			  <thead class="thead-light">
 					<tr>
 					  <th>Data</th>
-					  <th>Przychód</th>
+					  <th>Rodzaj</th>
 					  <th>Kwota</th>
 					  <th>Sposób płatności</th>
 					  <th>Opis</th>
@@ -131,10 +132,11 @@
 
 			  </tbody>
 			</table>
-				
+			
 			{% else %}
 			<h2 class="h5">Brak wydatków w wybranym okresie</h2>
-			{% endif %}	
+			{% endif %}
+
 			
 			<br/><br/>
 			
@@ -143,8 +145,6 @@
 					<tr><th><h2 class="h4">Całkowity bilans poprzedniego miesiąca: {{ total_balance|number_format(2, ',','')}}</h2></th><tr>
 				</thread>
 			</table>
-		
-		{{ proba }}
 		
 		</div>
 													

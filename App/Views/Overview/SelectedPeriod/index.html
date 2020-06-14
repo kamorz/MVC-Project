@@ -1,14 +1,34 @@
 {% extends 'base.html' %}
 
-{% block title %}Przegląd operacji bieżącego miesiąca{% endblock %}
+{% block title %}Przegląd operacji bwybranego okresu{% endblock %}
 
 {% block body %}
 
    <div class="row">
 			
 		<div class="col-12 col-lg-10 offset-lg-1 text-center mb-5 mt-lg-3 mr-0 bg-white tab-content">
+		
+			<div class="col-10 offset-1 text-center mb-5 mt-lg-3 mr-0 bg-white">
+
+				<form method="post">
+				<div class="row">
+						
+					<div class="form-group col-8 offset-2 col-lg-5 offset-lg-1">
+					<label for="beginningDate">Data początkowa</label>
+					<input type="date" class="form-control" id="beginningDate" name="beginningDate" required>
+					</div>
+				
+					<div class="form-group col-8 offset-2 col-lg-5 offset-lg-0">
+					<label for="endingDate">Data końcowa</label>
+					<input type="date" class="form-control" id="endingDate" name="endingDate" required>
+					</div>
+
+				</div>
+				<button type="submit" class="btn-secondary mb-2">Wyszukaj</button>
+				</form>
+			</div>
 									
-			<h1 class="h2 mb-0 mt-3">Bieżący miesiąc</h1>
+			<h1 class="h2 mb-0 mt-3">Wybrany okres</h1>
 			<h1 class="h4 mb-4 mt-0">({{ start}} - {{ final }})</h1>
 
 			<h2 class="h4">Lista przychodów:</h2>
@@ -141,7 +161,7 @@
 			
 			<table class="table table-bordered h6">
 				<thead class="thead-light">
-					<tr><th><h2 class="h4">Całkowity bilans bieżącego miesiąca: {{ total_balance|number_format(2, ',','')}}</h2></th><tr>
+					<tr><th><h2 class="h4">Całkowity bilans okresu <br/> {{ start}} - {{ final }} : {{ total_balance|number_format(2, ',','')}}</h2></th><tr>
 				</thread>
 			</table>
 		
