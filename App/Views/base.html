@@ -55,6 +55,15 @@
 			font-family: 'Pacifico', cursive;
 			min-height: 70px;
 		}
+		
+		.sticky
+		{
+			width: 100%;
+			position: fixed;
+			left: 0;
+			top: 0;
+			z-index: 100;
+		}
 
 		.websideTopPct
 		{
@@ -79,23 +88,23 @@
 		<div class="container-fluid ">
 		
 			<div class="row" >
-			
+				
 				<div class="col-3  mx-0 text-center websideTopPct">
 					<img src="img/websideTop.jpg" class="img-fluid" alt="websideTop">	
 				</div>
-					
-				<div class="col-12 col-lg-6 mx-0 text-center websideTopTxt">	
+
+				<div class="col-12 col-lg-6 mx-0 text-center text-body websideTopTxt">	
 					<h1>Twój oszczędnościowy pomocnik</h1>
 				</div>
-					
+	
 				<div class="col-3 mx-0 text-center websideTopPct">
 					<img src="img/websideTop.jpg" class="img-fluid" alt="websideTop">	
 				</div>
-			</div>
+			</div> </a>
 					
 				{% if current_user %}			
 				
-					<div class="row">
+					<div class="row nav">
 						<nav class="navbar navbar-dark bg-openMenu navbar-expand-lg col-12">
 						
 							<a class="navbar-brand" href="/"><i class="icon-dollar"></i> Strona główna </a>
@@ -183,6 +192,29 @@
 
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+		
+		
+		<script>
+			$(document).ready(function() {
+			var NavY = $('.nav').offset().top;
+			 
+			var stickyNav = function(){
+			var ScrollY = $(window).scrollTop();
+				  
+			if (ScrollY > NavY) { 
+				$('.nav').addClass('sticky');
+			} else {
+				$('.nav').removeClass('sticky'); 
+			}
+			};
+			 
+			stickyNav();
+			 
+			$(window).scroll(function() {
+				stickyNav();
+			});
+			});	
+		</script>
 
 		{% block footer %}
 		{% endblock %}

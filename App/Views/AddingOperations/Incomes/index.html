@@ -11,7 +11,7 @@
 			
 			<form action="/addingIncomes/save" method="post">
 			
-				<div class="form-group col-6 offset-3">
+				<div class="form-group col-6 offset-3 mb-1">
 					<label for="incomeType">Rodzaj przychodu</label>
 					<select class="form-control" id="item_list" name="category">
 						{% for item in incomes %}
@@ -20,23 +20,23 @@
 					</select>
 				</div>
 					
-				<div class="form-group col-6 offset-3">
+				<div class="form-group col-6 offset-3 mb-1">
 					<label for="amount">Kwota (zł)</label>
 					<input type="number" class="form-control" id="amount" step="0.01" min="0.01" name="cash" required>
 				</div>	
 				
-				<div class="form-group col-6 offset-3">
+				<div class="form-group col-6 offset-3 mb-1">
 					<label for="incomeDate">Data</label>
 					<input type="date" class="form-control" id="incomeDate" name="date" required>
 					
 				</div>
 				
-				<div class="form-group col-6 offset-3">
+				<div class="form-group col-6 offset-3 mb-1">
 					<label for="extraDescription">Dodatkowy opis</label>
 					<textarea class="form-control" id="extraDescription"  name="addDesc" rows="2" placeholder="Pole opcjonalne"></textarea>
 				</div>
 				
-				<button type="submit" class="btn btn-secondary mb-2 accountIntroduction">ZATWIERDŹ</button>		
+				<button type="submit" class="btn btn-secondary mb-3 accountIntroduction">ZATWIERDŹ</button>		
 				
 			</form>	
 			
