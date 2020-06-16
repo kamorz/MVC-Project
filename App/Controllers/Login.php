@@ -23,7 +23,7 @@ class Login extends \Core\Controller
      */
     public function newAction()
     {
-        View::renderTemplate('Login/new.html');
+        View::renderTemplate('Log/new.html');
     }
 
     /**
@@ -51,7 +51,7 @@ class Login extends \Core\Controller
 
             Flash::addMessage('Nieudane logowanie, spróbuj ponownie', Flash::WARNING);
 
-            View::renderTemplate('Login/new.html', [
+            View::renderTemplate('Log/new.html', [
                 'email' => $_POST['email'],
                 'remember_me' => $remember_me
             ]);

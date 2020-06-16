@@ -20,19 +20,19 @@ class Config
      * Database name
      * @var string
      */
-    const DB_NAME = 'kamilorz_topmvc';
+    const DB_NAME = 'mvclogin';
 
     /**
      * Database user
      * @var string
      */
-    const DB_USER = 'kamilorz_HomeBudgetAdmin';
+    const DB_USER = 'root';
 
     /**
      * Database password
      * @var string
      */
-    const DB_PASSWORD = 'ZibiBoniek123';
+    const DB_PASSWORD = '';
 
     /**
      * Show or hide error messages on screen

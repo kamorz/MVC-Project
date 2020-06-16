@@ -34,6 +34,7 @@ $router = new Core\Router();
 // Add the routes
 $router->add('', ['controller' => 'Home', 'action' => 'index']);
 $router->add('login', ['controller' => 'Login', 'action' => 'new']);
+$router->add('signup', ['controller' => 'Registration', 'action' => 'new']);
 $router->add('newIncome', ['controller' => 'AddingIncomes', 'action' => 'new']);
 $router->add('newExpense', ['controller' => 'AddingExpenses', 'action' => 'new']);
 $router->add('currentMonthOverview', ['controller' => 'Balance', 'action' => 'currentMonth']);
